@@ -12,7 +12,7 @@ async def predict(request: PredictRequest):
     logger.info("POST /predict - text received: %s", request)
     try:
         result = await model_loader.predict(request.text)
-        return PredictResponse(sentiments=result)
+        return PredictResponse(sentiments=result["sentiment"], categories=result["category"])
     except Exception as e:
         logger.exception("POST /predict - error during prediction: %s", e)
         raise HTTPException(status_code=500, detail="Internal Server Error")

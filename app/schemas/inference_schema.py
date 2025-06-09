@@ -8,6 +8,7 @@ class PredictRequest(BaseModel):
 
 class PredictResponse(BaseModel):
     sentiments: Dict[str, str]  # 카테고리별 감성 분석 결과 (pos, neg, none)
+    categories: Dict[str, str]  # 카테고리별 카테고리 분석 결과
 
 class CategoriesResponse(BaseModel):
     categories: list[str]  # 카테고리 목록 

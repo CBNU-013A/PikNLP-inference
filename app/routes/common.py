@@ -17,7 +17,8 @@ def health():
     logger.info("GET /health - Health check requested.")
     return {
         "status": "ok",
-        "model_loaded": model_loader.model is not None,
+        "s_model_loaded": model_loader.s_model is not None,
+        "c_model_loaded": model_loader.c_model is not None,
         "device": str(model_loader.device),
         "cuda_available": torch.cuda.is_available(),
         "API-MODE": os.getenv("ENV")
