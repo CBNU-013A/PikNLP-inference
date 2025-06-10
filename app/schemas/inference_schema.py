@@ -11,5 +11,6 @@ class PredictResponse(BaseModel):
     categories: Dict[str, str]  # 카테고리별 카테고리 분석 결과
 
 class CategoriesResponse(BaseModel):
-    categories: list[str]  # 카테고리 목록 
+    sentiment_model: list[str]
+    category_map: dict[str, list[str]]
     

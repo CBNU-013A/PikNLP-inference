@@ -208,12 +208,14 @@ class ModelLoader:
 
     
     # TODO: Sentiment, Category 모델 반영
-    async def get_categories(self) -> list[str]:
+    async def get_categories(self) -> dict:
         logger.info("Fetching categories")
         # 카테고리 목록 반환
-        categories = list(self.s_id2label.values())
-        logger.info("✅ Fetched categories: %s", categories)
-        return categories
+        sentimnet_model = list(self.s_id2label.values())
+        category_map = self.c_model.config.category2label
+
+        logger.info("✅ Fetched categories: %s, %s", sentimnet_model, category_map)
+        return {"sentiment_model": sentimnet_model, "category_map": category_map}
 
 # 싱글톤 인스턴스 생성
 model_loader = ModelLoader(app_config)

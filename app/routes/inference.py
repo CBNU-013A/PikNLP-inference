@@ -22,7 +22,7 @@ async def get_categories():
     logger.info("GET /categories - fetching categories")
     try:
         categories = await model_loader.get_categories()
-        return CategoriesResponse(categories=categories)
+        return CategoriesResponse(sentiment_model=categories["sentiment_model"], category_map=categories["category_map"])
     except Exception as e:
         logger.exception("GET /categories - error fetching categories: %s", e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
