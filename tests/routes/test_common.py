@@ -19,7 +19,8 @@ async def test_health(async_client):
     assert res.status_code == 200
     data = res.json()
     assert data["status"] == "ok"
-    assert "model_loaded" in data
+    assert "s_model_loaded" in data
+    assert "c_model_loaded" in data
     assert "device" in data
     assert "cuda_available" in data
     assert "API-MODE" in data
