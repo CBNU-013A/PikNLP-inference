@@ -1,18 +1,17 @@
 # Base Image
 FROM pytorch/pytorch:2.7.0-cuda12.6-cudnn9-runtime
 
-# Poetry 설치
-RUN pip install -U poetry
+# uv 설치
+RUN pip install -U uv
 
 # 경로 정의
 WORKDIR /workdir
 
-# 로컬에 있는 pyproject.toml, poetry.lock 파일을 컨테이너로 복사
-COPY poetry.lock pyproject.toml /workdir/
+# pyproject.toml만 먼저 복사하여 캐시 최적화
+COPY pyproject.toml /workdir/
 
-# Poetry를 이용하여 의존성 설치 
-RUN poetry config virtualenvs.create false \
- && poetry install --no-root --no-interaction 
+# uv로 의존성 설치 (시스템 환경에 설치)
+RUN uv sync --no-dev --frozen --system
 
 # 로컬에 있는 소스코드를 컨테이너로 복사
 COPY . /workdir
@@ -33,4 +32,4 @@ COPY . /workdir
 EXPOSE 18000
 
 # command to run
-CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "18000"]
+CMD ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "18000"]
