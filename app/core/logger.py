@@ -1,6 +1,10 @@
 # /app/core/logger.py
 
 import logging
+from pathlib import Path
+
+# Ensure log directory exists
+Path("logs").mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(
     level = logging.INFO,

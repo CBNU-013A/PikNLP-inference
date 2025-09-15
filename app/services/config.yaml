@@ -1,14 +1,15 @@
 model:
-  name: "HuSnYn/pik-electra"
+  s_name: "CBNU-013A/piknlp-sentiment"
+  c_name: "CBNU-013A/piknlp-category"
   tokenizer_name: "monologg/koelectra-small-v3-discriminator"
-  max_length: 128
   device: "cuda"  # "cuda" 또는 "cpu"
-
-labels:
-  pos: 0
-  neg: 1
-  none: 2
+  dropout_rate: 0.1
 
 inference:
   batch_size: 1
-  num_workers: 4 
+  num_workers: 4  
+
+sentiment_label_map:
+  0: "pos"
+  1: "neg"
+  2: "none"

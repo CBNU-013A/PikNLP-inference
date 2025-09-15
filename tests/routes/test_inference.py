@@ -24,8 +24,8 @@ async def test_predict_success_cases(async_client, text):
     )
     assert res.status_code == 200
     data = res.json()
-    assert "sentiments" in data
-    assert isinstance(data["sentiments"], dict)
+    assert "sentiments" in data and isinstance(data["sentiments"], dict)
+    assert "categories" in data and isinstance(data["categories"], dict)
 
 # TC01-2: 빈 text → 422
 @pytest.mark.asyncio
@@ -68,9 +68,8 @@ async def test_get_categories_success(async_client):
     res = await async_client.get("/api/v1/categories", headers={"NLP-API-KEY": API_KEY})
     assert res.status_code == 200
     data = res.json()
-    assert "categories" in data
-    assert isinstance(data["categories"], list)
-    assert all(isinstance(cat, str) for cat in data["categories"])
+    assert "sentiment_model" in data and isinstance(data["sentiment_model"], list)
+    assert "category_map" in data and isinstance(data["category_map"], dict)
 
 # TC02-2: internal error → 500
 @pytest.mark.asyncio

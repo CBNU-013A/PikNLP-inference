@@ -16,19 +16,12 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python3 -
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v3
 
     - name: Install dependencies
       run: |
-        poetry install
-    
-    - name: Prepare logs directory
-      run: |
-        mkdir -p logs
-        touch logs/server.log
+        uv sync
 
     - name: Set up .env for test
       run: |
@@ -37,4 +30,4 @@ jobs:
 
     - name: Run tests
       run: |
-        poetry run pytest --cov=app --cov=tests --cov-report=term --cov-report=xml
+        uv run pytest --cov=app --cov=tests --cov-report=term --cov-report=xml

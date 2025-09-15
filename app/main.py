@@ -18,7 +18,7 @@ load_env()
 app = FastAPI(
     title="PikNLP Server",
     description="PikNLP Server",
-    version="0.1.0",
+    version="0.2.0",
     docs_url="/docs",
     redoc_url="/redoc",
 )

@@ -5,16 +5,12 @@
 ## 실행방법
 
 > [!warning]
-> Docker를 사용하지 않는 경우, [Poetry](https://python-poetry.org/docs/#installing-with-pipx)가 필요합니다.
+> Docker를 사용하지 않는 경우, [uv](https://github.com/astral-sh/uv)가 필요합니다.
 
-### poetry 환경 구성
+### uv 환경 구성
 ```bash
-# 1. 의존성 설치
-poetry install
-# 2. 서버 실행(port=18000)
-poetry run python run.py
-# or
-poetry run uvicorn app.main:app <port>
+uv sync
+uv run run.py
 ```
 
 ### Docker
@@ -62,19 +58,21 @@ docker run --gpus all -p <port> --env-file .env piknlp-server:latest
 ```json
 {
   "sentiments": {
+    "주차": "neg",
+    "교통편": "pos",
+    "청결/관리": "pos",
+    "혼잡도": "none",
+    "편의시설": "none",
     "가격": "none",
-    "가족": "none",
-    "역사": "none",
-    "접근성": "none",
-    "사진": "none",
-    "경관": "pos",
-    "계절": "none",
-    "공원": "pos",
-    "문화": "none",
-    "체험": "none",
-    "음식": "none",
-    "시설": "none",
-    "자연": "pos"
+    "동반": "none",
+    "장소": "pos",
+    "활동": "none"
+  },
+  "categories": {
+    "동반": "혼자",
+    "시점": "none",
+    "장소": "자연경관",
+    "활동": "탐방"
   }
 }
 
@@ -88,20 +86,53 @@ docker run --gpus all -p <port> --env-file .env piknlp-server:latest
 
 ```json
 {
-  "categories": [
+  "sentiment_model": [
+    "주차",
+    "교통편",
+    "청결/관리",
+    "혼잡도",
+    "편의시설",
     "가격",
-    "가족",
-    "역사",
-    "접근성",
-    "사진",
-    "경관",
-    "계절",
-    "공원",
-    "문화",
-    "체험",
-    "음식",
-    "시설",
-    "자연"
-  ]
+    "동반",
+    "장소",
+    "활동"
+  ],
+  "category_map": {
+    "동반": [
+      "혼자",
+      "가족",
+      "연인",
+      "친구",
+      "반려동물",
+      "단체",
+      "none"
+    ],
+    "시점": [
+      "봄",
+      "여름",
+      "가을",
+      "겨울",
+      "주간",
+      "야간",
+      "none"
+    ],
+    "장소": [
+      "자연경관",
+      "도시명소",
+      "문화역사",
+      "상업",
+      "휴양",
+      "none"
+    ],
+    "활동": [
+      "탐방",
+      "관람",
+      "참여",
+      "먹거리",
+      "쇼핑",
+      "포토존",
+      "none"
+    ]
+  }
 }
 ```
