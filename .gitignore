@@ -19,3 +19,6 @@ logs/
 data/
 
 .venv
+
+# MD
+idea.md
